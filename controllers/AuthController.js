@@ -58,4 +58,27 @@ const login = async (request, response) => {
     });
 }
 
-module.exports = { register, login }
+
+const user = async (request, response) => {
+    const { userId } = request.user;
+    const user = await User.findById(userId);
+    
+    if (user) { 
+        response.json({
+            user: {
+                email: user.email,
+                name: user.name
+            }
+        })
+    }
+    else {
+        response.status(401).send(
+            {
+                result: 'error',
+                message: 'Account does not exist'
+            }
+        )
+    }
+}
+
+module.exports = { register, login, user }

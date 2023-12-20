@@ -23,7 +23,7 @@ const add = async (request, response) => {
     try {
         const post = new Post(request.body);
         await post.save(); // save to DB
-        response.send(`Post with id ${post._id} added!`)
+        response.json(post)
     }
     catch (err) {
         response.status(400).json(err);
